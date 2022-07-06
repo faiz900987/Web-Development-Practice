@@ -1,0 +1,405 @@
+html, body {
+    padding:0;
+    margin:0;
+  }
+  
+  html {
+    background:#222;
+    font-family:monospace;
+    font-size:16px;
+    color:white;
+  }
+  
+  #container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow:hidden;
+  }
+  
+  /* Pilot Game 1234*/
+  #pilotGame {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    padding:50px;
+    box-sizing:border-box;
+    background-color: #52ACFF;
+    background-image:linear-gradient(180deg, dodgerblue 12%, Khaki 90%, YellowGreen 90% );
+    display:grid;
+    place-items:center;
+    /* display:none; 097*/
+  }
+  
+  details {
+    position:fixed;
+    top:1em;
+    left:1em;
+  }
+  
+  details > summary {
+    font-weight:900;
+    cursor:pointer;
+    list-style:none;
+    background:rgba(255,255,255,.1);
+    width:fit-content;
+    padding:.5em;
+    border-radius:1em;
+    opacity:.5;
+    transition:.25s;
+  }
+  
+  [open] > summary {
+    opacity:1;
+  }
+  
+  details p {
+    margin-left:2em;
+  }
+  
+  #outerPlane {
+    position:absolute;
+    width:50px;
+    height:46px;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+  }
+  
+  #plane {
+    width:50px;
+    height:25px;
+    border-radius:15%;
+    border-bottom-left-radius:75%;
+    border-top-left-radius:0%;
+    border:2px solid white;
+    position:absolute;
+    background-color:transparent;
+    z-index:1;
+    transform-origin:center center;
+    top:0;
+    left:0;
+  }
+  .flightBob {
+    animation:flightBob 2s linear infinite;
+  }
+  @keyframes flightBob{
+    25% { top:-10px; }
+    50% { top:0px; }
+    75% { top:10px; }
+    100% { top:0px; }
+  }
+  
+  .loop {
+    animation:loop 1.25s linear forwards;
+    transform-origin:center -150px !important;
+  }
+  @keyframes loop {
+    100% { transform: rotateZ(-360deg); }
+  }
+  
+  .roll {
+    transform-origin:center center;
+    animation:roll 1.25s linear forwards;
+  }
+  @keyframes roll {
+    25% { transform: scale(.875) translateY(-150px) rotateX(-90deg); }
+    50% { transform: scale(.75) translateY(0px) rotateX(-180deg); }
+    75% { transform: scale(.875) translateY(150px) rotateX(-270deg); }
+    100% { transform: scale(1) translateY(0px) rotateX(-360deg); }
+  }
+  .dblFlip {
+    transform-origin:center center;
+    animation:dblFlip 1.25s linear forwards;
+  }
+  @keyframes dblFlip {
+    100% { transform: rotateZ(-720deg); }
+  }
+  .circle {
+    transform-origin:center center;
+    animation:circle 1.25s linear forwards;
+  }
+  @keyframes circle {
+    25% { transform: scale(.875) translateX(150px) rotateY(-90deg); }
+    50% { transform: scale(.75) translateX(0px) rotateY(-180deg); }
+    75% { transform: scale(.875) translateX(-150px) rotateY(-270deg); }
+    100% { transform: scale(1) translateX(0px) rotateY(-360deg); }
+  }
+  
+  #plane.dblFlip.circle {
+    transform-origin:center center;
+    animation:leftRight 1.25s linear forwards !important;
+  }
+  
+  @keyframes leftRight {
+    25% { transform: scale(.875) translateX(150px) rotateY(-90deg) rotateZ(-180deg); }
+    50% { transform: scale(.75) translateX(0px) rotateY(-180deg) rotateZ(-360deg); }
+    75% { transform: scale(.875) translateX(-150px) rotateY(-270deg) rotateZ(-540deg); }
+    100% { transform: scale(1) translateX(0px) rotateY(-360deg) rotateZ(-720deg); }
+  }
+  #plane.roll.loop {
+    transform-origin:0 -150px !important;
+    animation:upDown 1.25s linear forwards !important;
+  }
+  @keyframes upDown {
+    100% {transform: rotateZ(-360deg) rotateY(-720deg);}
+  }
+  #plane.roll.dblFlip {
+    transform-origin:center center;
+    animation:leftDown 1.25s linear forwards !important;
+  }
+  @keyframes leftDown {
+    25% { transform: scale(.875) translateY(-150px) rotateZ(-180deg) rotateX(-90deg); }
+    50% { transform: scale(.75) translateY(0px) rotateZ(-360deg) rotateX(-180deg); }
+    75% { transform: scale(.875) translateY(150px) rotateZ(-540deg) rotateX(-270deg); }
+    100% { transform: scale(1) translateY(0px) rotateZ(-720deg) rotateX(-360deg); }
+  }
+  #plane.loop.circle {
+    transform-origin:center center !important;
+    animation:upRight 1.25s linear forwards !important;
+  }
+  @keyframes upRight {
+    10% { transform: rotateZ(-90deg) ; }
+    25% { transform: rotateZ(-90deg) rotateX(-360deg); }
+    75% { transform: rotateZ(-90deg) rotateX(360deg) ; }
+    100% { transform: rotateZ(0deg) ; }
+  }
+  #plane.roll.circle {
+    transform-origin:center center !important;
+    animation:downRight 1.25s linear forwards !important;
+  }
+  @keyframes downRight {
+    50% { left:101vw; }
+    50.1% { left:-101vw; }
+    100% { left:0vw; }
+  }
+  
+  #plane:before {
+    content:'';
+    position:absolute;
+    width:10px;
+    height:6px;
+    display:block;
+    border:2px solid white;
+    top:-10px;
+    left:-2px;
+    border-top-left-radius:25%;
+    border-top-right-radius:75%;
+    z-index:-1;
+    background-color:transparent;
+  }
+  #plane:after {
+    content:'';
+    position:absolute;
+    width:5px;
+    height:10px;
+    display:block;
+    border:2px solid white;
+    top:3px;
+    left:50px;
+    border-radius:15%;
+    border-top-right-radius:50%;
+    border-bottom-right-radius:50%;
+    background-color:transparent;
+  }
+  
+  #wings {
+    width:5px;
+    height:18px;
+    border-right:2px solid white;
+    border-left:2px solid white;
+    position:absolute;
+    top:-11px;
+    left:33px;
+  }
+  #wings:before {
+    content:'';
+    width:20px;
+    height:3px;
+    border:2px solid white;
+    border-radius:35%;
+    position:absolute;
+    top:-5px;
+    left:-10px;
+    background-color:transparent;
+  }
+  #wings:after {
+    content:'';
+    width:20px;
+    height:3px;
+    border:2px solid white;
+    border-radius:35%;
+    position:absolute;
+    top:18px;
+    left:-10px;
+    background-color:transparent;
+  }
+  
+  #wheels {
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    border:2px solid white;
+    position:absolute;
+    top:16px;
+  }
+  #wheels:before {
+    content:'';
+    width:1px;
+    height:7px;
+    border-left:2px solid white;
+    position:absolute;
+    top:7px;
+    left:34px;
+  }
+  #wheels:after {
+    content:'';
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    border:2px solid white;
+    position:absolute;
+    top:12px;
+    left:30px;
+  }
+  
+  #spin {
+    width:1px;
+    height:10px;
+    border-left:1px solid white;
+    position:absolute;
+    left:54px;
+    top:-8px;
+    border-top-left-radius:75%;
+    border-top-right-radius:75%;
+    transform-origin:center 17px;
+    animation: spin 1s linear infinite;
+  }
+  #spin:after {
+    content:'';
+    width:1px;
+    height:10px;
+    border-left:1px solid white;
+    position:absolute;
+    left:-1px;
+    top:22px;
+    border-bottom-left-radius:75%;
+    border-bottom-right-radius:75%;
+  }
+  
+  @keyframes spin {
+    100% { transform:rotateX(720deg); }
+  }
+  
+  #wind {
+    position:absolute;
+    top:0px;
+    left:0px;
+    height:2px;
+    border-radius:35%;
+    background-color:white;
+  
+  }
+  #wind:before {
+    content:'';
+    position:absolute;
+    top:-18px;
+    left:25px;
+    height:2px;
+    border-radius:35%;
+    background-color:white;
+    animation: wind 2.5s linear infinite;
+  }
+  @keyframes wind {
+    0% { width:0px; }
+    25% { left: 0px; width:25px; }
+    50% { left: 0px; width:0px; opacity:0; }
+    100% { left: 0px; width:0px; opacity:0; }
+  }
+  
+  #wind:after {
+    content:'';
+    position:absolute;
+    top:30px;
+    left:40px;
+    height:2px;
+    border-radius:35%;
+    background-color:white;
+    animation: wind2 2.25s linear infinite;
+  }
+  @keyframes wind2 {
+    0% { width:0px; }
+    25% { left: 15px; width:25px; }
+    50% { left: 15px; width:0px; opacity:0; }
+    100% { left: 15px; width:0px; opacity:0; }
+  }
+  
+  @keyframes spin2 {
+    100% { transform:rotate(850deg); }
+  }
+  
+  @keyframes drop {
+    50% { opacity:0; }
+    100% { top:calc(100vh); opacity:0; }
+  }
+  @keyframes spin3 {
+    100% { transform:rotate(850deg); }
+  }
+  
+  @keyframes drop3 {
+    50% { opacity:0; }
+    100% { top:calc(100vh); opacity:0; }
+  }
+  
+  #instruct {
+    max-width:500px;
+    padding:20px;
+    color:white;
+    font-size:24px;
+    font-weight:100;
+    text-align:center;
+    position:fixed;
+    top:57%;
+    left:50%;
+    transform:translateX(-50%);
+    border:3px solid white;
+    border-radius:20px;
+  }
+  .open {
+    animation: instruct 5s linear forwards;
+  }
+  @keyframes instruct {
+    90% { opacity:1; }
+    100% { opacity:0; }
+  }
+  
+  .close {
+    animation: instruct2 7s linear forwards;
+  }
+  @keyframes instruct2 {
+    0% { opacity:0; }
+    20% { opacity:1; }
+    90% { opacity:1; }
+    100% { opacity:0; }
+  }
+  
+  #nombre {
+    padding:10px;
+    text-align:center;
+    color:white;
+    border:3px solid white;
+    display:none;
+    position:absolute;
+    top:50px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index: 999;
+    border-radius: 50px;
+  }
+  .showName {
+    display:block !important;
+  }
